@@ -1,76 +1,90 @@
-﻿<Window x:Class="BillShifor.MainWindow"
+﻿<Window x:Class="WpCalculator.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BillShifor"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#FF081C15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="169*"/>
-            <ColumnDefinition Width="631*"/>
-        </Grid.ColumnDefinitions>
-        <Menu Margin="0,0,619,0" Background="#FF1B4332" Grid.ColumnSpan="2">
-            <MenuItem Header="Добавить файл" Width="181" FontSize="15" Height="60" Cursor="Arrow" Background="#FF40916C" Foreground="White" BorderBrush="#FF1B4332"/>
-            <MenuItem Header="Шифровки" Width="181" FontSize="15" Height="60" Background="#FF40916C" RenderTransformOrigin="1,0" Foreground="White" Click="MenuItem_Click" BorderBrush="#FF1B4332">
-                <MenuItem Header="Цезарь" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <MenuItem Header="Сталин" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <Separator/>
-            </MenuItem>
-            <MenuItem Header="Действия" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="MenuItem_Click_1" BorderBrush="#FF1B4332">
-                <MenuItem Header="Экспорт" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <MenuItem Header="Импорт" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <Separator/>
-            </MenuItem>
-        </Menu>
-        <Button Content="Выход" Margin="0,357,0,0" HorizontalAlignment="Center" Width="129" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" >
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                    CornerRadius="10"
-                    BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                                  VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
-        <ListBox Grid.Column="1" Height="156" Margin="0,20,18,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" Foreground="White" Background="#FF1B4332" HorizontalAlignment="Right" Width="594"/>
-        <ListBox Grid.Column="1" Height="156" Margin="0,234,18,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FF1B4332" Foreground="White" SelectionChanged="ListBox_SelectionChanged" HorizontalAlignment="Right" Width="594"/>
-        <Button Content="Шифровать" Margin="0,181,482,0" HorizontalAlignment="Right" Width="130" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.Column="1" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="10"
-                        BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
-        <Button Content="Расшифровать" Margin="0,181,349,0" HorizontalAlignment="Right" Width="128" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.Column="1" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="10"
-                        BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
+        Title="WP Calculator - Движок слабейшего предусловия" 
+        Height="700" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl>
+            <TabItem Header="WP Калькулятор">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
+                    <GroupBox Grid.Row="0" Header="Постусловие (Post)" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="PostConditionTextBox" Width="200" Height="25" 
+                                   Text="max &gt; 100" Margin="5"/>
+                            <TextBox x:Name="PostDescriptionTextBox" Width="400" Height="25" 
+                                   Text="Максимальное значение больше 100" Margin="5"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1" Header="Программа" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox x:Name="ProgramTextBox" Grid.Row="0" 
+                                   AcceptsReturn="True" TextWrapping="Wrap"
+                                   VerticalScrollBarVisibility="Auto"
+                                   FontFamily="Consolas" FontSize="12"
+                                   Text="if (x1 &gt;= x2)&#xD;&#xA;    max := x1;&#xD;&#xA;else&#xD;&#xA;    max := x2;"/>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">
+                                <Button Content="Пример: Max из двух" Click="LoadMaxExample" 
+                                       Margin="0,0,5,0" Padding="10,3"/>
+                                <Button Content="Пример: Квадратное уравнение" Click="LoadQuadraticExample" 
+                                       Margin="0,0,5,0" Padding="10,3"/>
+                                <Button Content="Пример: Последовательность" Click="LoadSequenceExample" 
+                                       Margin="0,0,5,0" Padding="10,3"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <Button Grid.Row="2" Content="Рассчитать WP" Click="CalculateWp_Click" 
+                           Height="30" Background="LightBlue" FontWeight="Bold"/>
+
+                    <GroupBox Grid.Row="3" Header="Результаты" Margin="0,10,0,0">
+                        <TabControl>
+                            <TabItem Header="Пошаговый трейс">
+                                <TextBox x:Name="StepTraceTextBox" 
+                                       AcceptsReturn="True" TextWrapping="Wrap"
+                                       VerticalScrollBarVisibility="Auto"
+                                       FontFamily="Consolas" FontSize="11"
+                                       Height="200" IsReadOnly="True"/>
+                            </TabItem>
+                            <TabItem Header="Итоговое предусловие">
+                                <StackPanel>
+                                    <TextBox x:Name="FinalPreconditionTextBox" 
+                                           AcceptsReturn="True" TextWrapping="Wrap"
+                                           VerticalScrollBarVisibility="Auto"
+                                           FontFamily="Consolas" FontSize="11"
+                                           Height="80" IsReadOnly="True" Margin="5"/>
+                                    <TextBox x:Name="FinalDescriptionTextBox" 
+                                           AcceptsReturn="True" TextWrapping="Wrap"
+                                           VerticalScrollBarVisibility="Auto"
+                                           FontFamily="Consolas" FontSize="11"
+                                           Height="60" IsReadOnly="True" Margin="5"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Триада Хоара">
+                                <TextBox x:Name="HoareTripleTextBox" 
+                                       AcceptsReturn="True" TextWrapping="Wrap"
+                                       VerticalScrollBarVisibility="Auto"
+                                       FontFamily="Consolas" FontSize="11"
+                                       Height="150" IsReadOnly="True"/>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
