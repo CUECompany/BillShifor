@@ -4,23 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BillShifor"
+        xmlns:converters="clr-namespace:BillShifor.Converters"
+        xmlns:viewModels="clr-namespace:BillShifor.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#FF081C15">
+        Title="Легендочка" Height="500" Width="900" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <converters:BoolToArrowConverter x:Key="BoolToArrowConverter"/>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <converters:BoolToTextConverter x:Key="BoolToTextConverter"/>
+        <converters:BoolToCheckmarkConverter x:Key="BoolToCheckmarkConverter"/>
+    </Window.Resources>
+
+    <TabControl Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" Height="484" VerticalAlignment="Top" HorizontalAlignment="Left" Width="905">
+        <TabItem Header="Шифроватор">
+            <Grid Height="500" VerticalAlignment="Top" HorizontalAlignment="Center" Width="895" Background="#FFEDF2FB">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="169*"/>
-            <ColumnDefinition Width="631*"/>
+                    <ColumnDefinition Width="28*"/>
+                    <ColumnDefinition Width="101*"/>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="91*"/>
+                    <ColumnDefinition Width="141*"/>
+                    <ColumnDefinition Width="470*"/>
+                    <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Menu Margin="0,0,619,0" Background="#FF1B4332" Grid.ColumnSpan="2">
-            <MenuItem Header="Добавить файл" Width="181" FontSize="15" Height="60" Cursor="Arrow" Background="#FF40916C" Foreground="White" BorderBrush="#FF1B4332"/>
-            <MenuItem Header="Шифровки" Width="181" FontSize="15" Height="60" Background="#FF40916C" RenderTransformOrigin="1,0" Foreground="White" Click="MenuItem_Click" BorderBrush="#FF1B4332">
-                <MenuItem Header="Цезарь" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <MenuItem Header="Сталин" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
+
+                <Rectangle Grid.Column="5" HorizontalAlignment="Left" Height="36" Margin="301,0,0,0" Stroke="White" VerticalAlignment="Center" Width="127" Fill="#FF006363"  RadiusX="10" RadiusY="10"/>
+
+                <Rectangle Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="36" Margin="7,0,0,0" Stroke="White" VerticalAlignment="Center" Width="275" Fill="#FF006363"  RadiusX="10" RadiusY="10"/>
+
+                <Menu Grid.ColumnSpan="3" Foreground="{x:Null}" Background="#FFABC4FF" HorizontalAlignment="Left">
+                    <MenuItem Header="Шифровки" Width="181" FontSize="15" Height="60" RenderTransformOrigin="1,0" Foreground="#FF006363" BorderBrush="#FFABC4FF" Background="#FFCCDBFD" HorizontalAlignment="Center">
+                        <MenuItem Header="Цезарь" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="CaesarMenu_Click"/>
+                        <MenuItem Header="Виженер" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="VigenereMenu_Click"/>
+                        <MenuItem Header="Атбаш" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="AtbashMenu_Click"/>
+                        <MenuItem Header="Плейфер" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="PlayfairMenu_Click"/>
+                        <MenuItem Header="Вернам" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="VernamMenu_Click"/>
+                        <MenuItem Header="RSA" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="RSAMenu_Click"/>
+                        <MenuItem Header="DES" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="DESMenu_Click"/>
                 <Separator/>
             </MenuItem>
-            <MenuItem Header="Действия" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="MenuItem_Click_1" BorderBrush="#FF1B4332">
-                <MenuItem Header="Экспорт" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
-                <MenuItem Header="Импорт" Background="#FF40916C" Width="181" Height="55" FontSize="15" Foreground="White" Cursor=""/>
+                    <MenuItem Header="Действия" Background="#FFCCDBFD" Width="181" Height="55" FontSize="15" Foreground="#FF006363" Cursor="" BorderBrush="#FFABC4FF">
+                        <MenuItem Header="Экспорт" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="ExportButton_Click"/>
+                        <MenuItem Header="Импорт" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="MenuItem_Import"/>
+                        <MenuItem Header="Очистить поля" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="ClearFields_Click"/>
                 <Separator/>
             </MenuItem>
         </Menu>
@@ -71,6 +98,686 @@
                 <Style/>
             </Button.FocusVisualStyle>
         </Button>
+                <TextBox x:Name="TextBox_Input" Grid.Column="4" HorizontalAlignment="Left" Margin="136,181,0,0" TextWrapping="Wrap" Text="Привет МИР!!!" VerticalAlignment="Top" Width="435" Height="37" FontSize="14" Foreground="#FF006363" Grid.ColumnSpan="2" />
+                <TextBox x:Name="TextBox_Key" Grid.Column="3" Margin="8,181,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Height="37" HorizontalAlignment="Left" Width="200" FontSize="16" Grid.ColumnSpan="2" Foreground="#FF006363"/>
+                <Label x:Name="Label_Cipher" Grid.Column="3" Content="Шифровка: Не выбрана" HorizontalAlignment="Left" Margin="9,0,0,0" VerticalAlignment="Center" Foreground="White" Height="36" Width="254" FontSize="16" Grid.ColumnSpan="3"/>
+                <Label Grid.Column="3" Content="🗝️Ключ" HorizontalAlignment="Center" Margin="0,154,0,0" VerticalAlignment="Top" Foreground="#FF006363" Height="36" Width="72" FontSize="14"/>
+                <Border  BorderThickness="1" Grid.Column="6" Margin="83,-136,-785,136"/>
+                <Button Content="Выход" Margin="20,357,0,0" HorizontalAlignment="Left" Width="129" Height="48" VerticalAlignment="Top" FontSize="15" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.ColumnSpan="3" Background="#FF006363" BorderBrush="{x:Null}" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.FocusVisualStyle>
+                        <Style/>
+                    </Button.FocusVisualStyle>
+                </Button>
+                <TextBox Grid.Column="5" HorizontalAlignment="Left" Margin="302,0,0,0" TextWrapping="Wrap" Text="📜История" VerticalAlignment="Center" Width="126" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="White" TextChanged="TextBox_TextChanged" Height="26" FontSize="16"/>
+                <TextBox Grid.Column="4" HorizontalAlignment="Left" Margin="134,158,0,0" TextWrapping="Wrap" Text="🔓Предложение для шифрования" VerticalAlignment="Top" Width="237" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FF006363" TextChanged="TextBox_TextChanged" Height="32" FontSize="14" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Column="5" HorizontalAlignment="Left" Margin="29,11,0,0" TextWrapping="Wrap" Text="🛡️Шифровщик" VerticalAlignment="Top" Width="180" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FF006363" TextChanged="TextBox_TextChanged" Height="32" FontSize="22" FontWeight="Bold"/>
+                <TextBox Grid.Column="4" HorizontalAlignment="Left" Margin="99,41,0,0" TextWrapping="Wrap" Text="Зашифруй свою информацию от наглецов" VerticalAlignment="Top" Width="322" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FF006363" TextChanged="TextBox_TextChanged" Height="32" FontSize="16" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Column="5" HorizontalAlignment="Right" Margin="0,416,16,0" TextWrapping="Wrap" Text="By Сыновья Фермера" VerticalAlignment="Top" Width="128" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FF006363" TextChanged="TextBox_TextChanged" Height="32" FontStyle="Italic" RenderTransformOrigin="0.391,0.471"/>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Верификация Цезаря">
+            <Border Background="#FF1E3A5F" CornerRadius="10">
+                <Grid Margin="10">
+                    <Grid.Resources>
+                        <Style x:Key="IndicatorStyle" TargetType="Ellipse">
+                            <Setter Property="Width" Value="15"/>
+                            <Setter Property="Height" Value="15"/>
+                            <Setter Property="Stroke" Value="Black"/>
+                            <Setter Property="StrokeThickness" Value="1"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="🔐 Верификация шифра Цезаря - Русский алфавит" 
+                       FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
+                       Foreground="White" HorizontalAlignment="Center"/>
+
+                    <TabControl Grid.Row="1" Background="#FF2A4D7A">
+                        <!-- Вкладка шифрования -->
+                        <TabItem Header="Шифрование" Background="#FF4A76B5">
+                            <Grid Margin="10" Background="#FF2A4D7A">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Параметры ввода -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Текст:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="CaesarEncryptText" 
+                                     Height="60" TextWrapping="Wrap" AcceptsReturn="True"
+                                     Text="привет" Margin="0,5,0,5" Background="#FF1E3A5F" Foreground="White"
+                                     TextChanged="CaesarEncryptText_TextChanged"/>      
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Ключ:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,5,0,5" VerticalAlignment="Center">
+                                    <TextBox x:Name="CaesarEncryptKey" Width="50" Text="3" Background="#FF1E3A5F" Foreground="White"
+     TextChanged="CaesarEncryptKey_TextChanged"/>
+                                    <Slider x:Name="CaesarEncryptKeySlider" Minimum="1" Maximum="32" 
+                                    Width="150" Value="3" Margin="10,0,0,0"
+                                    ValueChanged="CaesarEncryptKeySlider_ValueChanged"/>
+                                </StackPanel>
+
+                                <!-- Индикаторы -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Pre-условия:" 
+                                   Margin="0,10,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,10,0,5" VerticalAlignment="Center">
+                                    <Ellipse x:Name="CaesarEncryptPreIndicator" Style="{StaticResource IndicatorStyle}" 
+                                     Fill="Red" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="CaesarEncryptPreStatus" Text="Не проверено" Foreground="White"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Post-условия:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,5,0,5" VerticalAlignment="Center">
+                                    <Ellipse x:Name="CaesarEncryptPostIndicator" Style="{StaticResource IndicatorStyle}" 
+                                     Fill="Gray" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="CaesarEncryptPostStatus" Text="Не выполнено" Foreground="White"/>
+                                </StackPanel>
+
+                                <!-- Кнопки -->
+                                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0">
+                                    <Button x:Name="CaesarEncryptButton" Content="🔒 Выполнить шифрование" 
+                                    Click="CaesarEncryptButton_Click" Padding="10,5" Margin="0,0,10,0"
+                                    Background="#FF4CAF50" Foreground="White"/>
+                                    <Button x:Name="CaesarEncryptContractButton" Content="📄 Показать контракт" 
+                                    Click="CaesarEncryptContractButton_Click" Padding="10,5"
+                                    Background="#FF2196F3" Foreground="White"/>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+
+                        <!-- Вкладка дешифрования -->
+                        <TabItem Header="Дешифрование" Background="#FF4A76B5">
+                            <Grid Margin="10" Background="#FF2A4D7A">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Параметры ввода -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Текст:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="CaesarDecryptText" 
+     Height="60" TextWrapping="Wrap" AcceptsReturn="True"
+     Text="тулезх" Margin="0,5,0,5" Background="#FF1E3A5F" Foreground="White"
+     TextChanged="CaesarDecryptText_TextChanged"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Ключ:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,5,0,5" VerticalAlignment="Center">
+                                    <TextBox x:Name="CaesarDecryptKey" Width="50" Text="3" Background="#FF1E3A5F" Foreground="White"
+     TextChanged="CaesarDecryptKey_TextChanged"/>
+                                    <Slider x:Name="CaesarDecryptKeySlider" Minimum="1" Maximum="32" 
+                                    Width="150" Value="3" Margin="10,0,0,0"
+                                    ValueChanged="CaesarDecryptKeySlider_ValueChanged"/>
+                                </StackPanel>
+
+                                <!-- Индикаторы -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Pre-условия:" 
+                                   Margin="0,10,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,10,0,5" VerticalAlignment="Center">
+                                    <Ellipse x:Name="CaesarDecryptPreIndicator" Style="{StaticResource IndicatorStyle}" 
+                                     Fill="Red" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="CaesarDecryptPreStatus" Text="Не проверено" Foreground="White"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Post-условия:" 
+                                   Margin="0,5,5,5" VerticalAlignment="Center" Foreground="White"/>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" 
+                                    Margin="0,5,0,5" VerticalAlignment="Center">
+                                    <Ellipse x:Name="CaesarDecryptPostIndicator" Style="{StaticResource IndicatorStyle}" 
+                                     Fill="Gray" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="CaesarDecryptPostStatus" Text="Не выполнено" Foreground="White"/>
+                                </StackPanel>
+
+                                <!-- Кнопки -->
+                                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0">
+                                    <Button x:Name="CaesarDecryptButton" Content="🔓 Выполнить дешифрование" 
+                                    Click="CaesarDecryptButton_Click" Padding="10,5" Margin="0,0,10,0"
+                                    Background="#FF4CAF50" Foreground="White"/>
+                                    <Button x:Name="CaesarDecryptContractButton" Content="📄 Показать контракт" 
+                                    Click="CaesarDecryptContractButton_Click" Padding="10,5"
+                                    Background="#FF2196F3" Foreground="White"/>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+
+                    <!-- Результат -->
+                    <Border Grid.Row="2" BorderBrush="#FF4A76B5" BorderThickness="1" Margin="0,10,0,0" 
+                    Background="#FF1E3A5F" Padding="10" CornerRadius="5">
+                        <TextBlock x:Name="CaesarResultText" Text="📝 Результат будет отображен здесь..." 
+                           TextWrapping="Wrap" Foreground="White"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </TabItem>
+
+        <TabItem Header="Крипто-Анализатор">
+            <Border Background="#FF26077A" CornerRadius="10">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="#FFEDF2FB">
+                        <Border Margin="20" Height="1551" Width="832" CornerRadius="15">
+                            <Border.Background>
+                                <SolidColorBrush Color="#FF2838A3"/>
+                            </Border.Background>
+                            <StackPanel Margin="6,10,0,6" Background="#FF2838A3" Width="816" HorizontalAlignment="Left">
+                                <Label Content="🔐 Анализатор безопасности шифров" 
+                       Foreground="White" FontSize="22" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                                <TextBlock Text="Анализ корректности криптографических алгоритмов через слабейшее предусловие" 
+                          Foreground="#FFA8DADC" TextWrapping="Wrap" TextAlignment="Center"
+                          Margin="10,0,10,15" FontSize="16"/>
+                                <GroupBox Header="🎯 Цель безопасности" Foreground="White" 
+                         FontSize="19" BorderBrush="#FF2838A3" Height="195" Width="720" HorizontalAlignment="Center">
+                                    <StackPanel Margin="10">
+                                        <Label Content="Алгоритм шифрования:" Foreground="White" FontSize="16"/>
+                                        <ComboBox x:Name="CryptoAlgorithmCombo" Height="30" Margin="0,5,0,10"
+                                Background="#FF2838A3" Foreground="Black" FontSize="14"
+                                SelectedIndex="0">
+                                            <ComboBoxItem Content="Цезарь" Tag="цезарь"/>
+                                            <ComboBoxItem Content="Виженер" Tag="виженер"/>
+                                            <ComboBoxItem Content="RSA" Tag="rsa"/>
+                                            <ComboBoxItem Content="Плейфер" Tag="плейфер"/>
+                                            <ComboBoxItem Content="Вернам" Tag="вернам"/>
+                                            <ComboBoxItem Content="Атбаш" Tag="атбаш"/>
+                                        </ComboBox>
+
+                                        <Label Content="Условие безопасности:" Foreground="White" FontSize="16"/>
+                                        <TextBox x:Name="SecurityPostCondition" Height="25" Margin="0,5,0,10" 
+                               Text="decrypt(encrypt(text, key), key) == text" 
+                               Background="#FF2838A3" Foreground="White" FontSize="14"/>
+
+                                        <TextBlock Text="Это постусловие гарантирует, что дешифрование зашифрованного текста дает исходный текст" 
+                                  Foreground="#FFA8DADC" FontSize="10" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Выбор алгоритма и цели -->
+
+                                <!-- Редактор крипто-кода -->
+                                <GroupBox Header="📝 Криптографический алгоритм" Foreground="White" 
+                         FontSize="19" BorderBrush="#FF2838A3" Margin="10,0,10,15" Height="279" Width="722" HorizontalAlignment="Center">
+                                    <StackPanel Margin="10">
+                                        <Label Content="Реализация алгоритма:" Foreground="White" FontSize="16"/>
+                                        <TextBox x:Name="CryptoCodeInput" Height="120" Margin="0,5,0,10" 
+                               TextWrapping="Wrap" AcceptsReturn="True"
+                               Background="#FF2838A3" Foreground="White" FontSize="12"
+                               VerticalScrollBarVisibility="Auto">
+                                            function encrypt(text, key) {
+    shift := key % 32;
+    result := "";
+    foreach char in text {
+        if (char in alphabet) {
+            idx := alphabet.indexOf(char);
+            new_idx := (idx + shift) % alphabet.length;
+            result := result + alphabet[new_idx];
+        }
+    }
+    return result;
+}
+                                        </TextBox>
+                                        <Label Content="Готовые сценарии анализа:" Foreground="White" FontSize="14"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="🔒 Цезарь" Margin="0,0,5,0" Height="28" 
+                                  Background="#FFFFF959" Foreground="Black" 
+                                  Click="CryptoExample1_Click" FontSize="12" Width="100"/>
+                                            <Button Content="🔑 RSA" Margin="0,0,5,0" Height="28" 
+                                  Background="#FFFFF959" Foreground="Black" 
+                                  Click="CryptoExample2_Click" FontSize="12" Width="80"/>
+                                            <Button Content="🔄 Виженер" Margin="0,0,5,0" Height="28" 
+                                  Background="#FFFFF959" Foreground="Black" 
+                                  Click="CryptoExample3_Click" FontSize="12" Width="100"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Анализ безопасности -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                                    <Button Content="🛡️ Анализировать безопасность" Height="35" 
+                          Background="#FFFFF959" Foreground="Black" 
+                          Click="AnalyzeSecurity_Click" FontSize="14" Margin="0,0,10,0"/>
+                                    <Button Content="📊 Показать триаду" Height="35" 
+                          Background="#FFFFF959" Foreground="Black" 
+                          Click="ShowCryptoHoareTriple_Click" FontSize="14"/>
+                                </StackPanel>
+
+                                <!-- Результаты анализа -->
+                                <GroupBox Header="📊 Результаты анализа безопасности" Foreground="White" 
+                         FontSize="19" BorderBrush="#FF2838A3" Margin="10,0,10,15" Height="257" Width="724">
+                                    <StackPanel Margin="10">
+                                        <Border x:Name="SecurityStatusBorder" Background="#FF2838A3" 
+                               CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                                            <TextBlock x:Name="SecurityStatusText" Foreground="White" 
+                                     FontSize="14" TextWrapping="Wrap" FontWeight="Bold"
+                                     Text="Запустите анализ для проверки безопасности"/>
+                                        </Border>
+
+                                        <Label Content="Пошаговый анализ предусловий:" Foreground="White" FontSize="12"/>
+                                        <ListBox x:Name="CryptoStepsList" Height="120" 
+                               Background="#FF2838A3" Foreground="White" 
+                               FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Text="{Binding Description}" 
+                                                 Foreground="#FFA8DADC" FontWeight="Bold" FontSize="10"/>
+                                                        <TextBlock Text="{Binding Expression}" 
+                                                 Foreground="White" Margin="10,2,0,2" FontSize="8"/>
+                                                        <TextBlock Text="{Binding SecurityCheck}" 
+                                                 Foreground="#FF90E0EF" Margin="10,0,0,2" 
+                                                 FontSize="7" FontStyle="Italic"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Детали безопасности -->
+                                <GroupBox x:Name="SecurityDetailsGroup" Header="🔍 Детали безопасности" 
+                         Foreground="White" FontSize="16" BorderBrush="#FF2838A3" 
+                         Visibility="Collapsed" Margin="10,0,10,15" Width="724">
+                                    <StackPanel Margin="10">
+                                        <Label Content="Итоговое предусловие безопасности:" Foreground="White" FontSize="12"/>
+                                        <TextBox x:Name="FinalSecurityPrecondition" Height="40" Margin="0,5,0,10" 
+                               TextWrapping="Wrap" Background="#FF2838A3" 
+                               Foreground="White" FontSize="1" IsReadOnly="True"/>
+
+                                        <Label Content="Триада Хоара для крипто-алгоритма:" Foreground="White" FontSize="12"/>
+                                        <TextBox x:Name="CryptoHoareTripleText" Height="60" Margin="0,5,0,10" 
+                               TextWrapping="Wrap" Background="#FF2838A3" 
+                               Foreground="White" FontSize="10" IsReadOnly="True"/>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Рекомендации -->
+                                <GroupBox x:Name="RecommendationsGroup" Header="💡 Рекомендации" 
+                         Foreground="White" FontSize="16" BorderBrush="#FF2838A3" 
+                         Visibility="Collapsed" Margin="10,0,10,15" Width="724">
+                                    <StackPanel Margin="10">
+                                        <TextBlock x:Name="SecurityRecommendations" Foreground="White" 
+                                 FontSize="12" TextWrapping="Wrap" Background="#FF2838A3" 
+                                 Padding="10"/>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </Border>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </TabItem>
+        <TabItem x:Name="CycleAnalysisTab" Header="Анализатор Циклов">
+            <Border Background="#FF2E1A47" CornerRadius="10">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border Margin="15" CornerRadius="15" Background="#FF4A2B7A" 
+                        HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <StackPanel Background="Transparent" Width="852" HorizontalAlignment="Center" Height="1708">
+
+                                <!-- Заголовок -->
+                                <Label Content="🔍 Циклы под микроскопом" 
+                               Foreground="White" FontSize="24" FontWeight="Bold" 
+                               HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                                <TextBlock Text="Инварианты, вариант-функции и тотальная корректность" 
+                                  Foreground="#FFB19CD9" TextWrapping="Wrap" TextAlignment="Center"
+                                  Margin="10,0,10,20" FontSize="16"/>
+
+                                <!-- Панель данных -->
+                                <GroupBox Header="📊 Данные массива" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,15" Padding="15" Height="314" Width="748" HorizontalAlignment="Center">
+                                    <StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                                <Label Content="Текст для анализа:" Foreground="White" FontSize="16"/>
+                                                <TextBox x:Name="ArrayTextTextBox" Height="32" Margin="0,5,0,10" 
+                                                 Text="{Binding CurrentText, UpdateSourceTrigger=PropertyChanged}"
+                                                 Background="#FF2A104F" Foreground="White" 
+                                                 FontSize="16" BorderThickness="1" BorderBrush="#FF7E5BA6"/>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Margin="5,0,5,0">
+                                                <Label Content="Ключ Цезаря:" Foreground="White" FontSize="16"/>
+                                                <TextBox x:Name="CaesarKeyTextBox" Height="32" Margin="0,5,0,10" 
+                                                 Text="{Binding CaesarKey}"
+                                                 Background="#FF2A104F" Foreground="White" 
+                                                 FontSize="16" BorderThickness="1" BorderBrush="#FF7E5BA6"/>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                                                <Label Content="Порог T:" Foreground="White" FontSize="14"/>
+                                                <TextBox x:Name="ThresholdTextBox" Height="32" Margin="0,5,0,10" 
+                                                 Text="{Binding Threshold}"
+                                                 Background="#FF2A104F" Foreground="White" 
+                                                 FontSize="16" BorderThickness="1" BorderBrush="#FF7E5BA6"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="🎲 Сгенерировать массив" Height="35" 
+                                            Background="#FFFFF959" Foreground="Black" 
+                                            FontSize="14" 
+                                            Margin="5,0" Padding="15,0" BorderBrush="{x:Null}"
+                                            Click="GenerateArrayButton_Click"/>
+                                            <Button Content="✏️ Редактировать" Height="35" 
+                                            Background="#FF7E5BA6" Foreground="White" 
+                                            FontSize="14" 
+                                            Margin="5,0" Padding="15,0" BorderBrush="{x:Null}"
+                                            Click="EditArrayButton_Click"/>
+                                        </StackPanel>
+
+                                        <!-- Таблица массива -->
+                                        <Border BorderThickness="1" BorderBrush="#FF7E5BA6" 
+                                        Background="#FF2A104F" Margin="0,10,0,0" 
+                                        CornerRadius="5" Padding="10">
+                                            <ListView x:Name="ArrayListView" Height="120" 
+                                              ItemsSource="{Binding CharArray}"
+                                              Background="#FF2A104F" Foreground="White"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14" Width="685">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Индекс" Width="60" 
+                                                        DisplayMemberBinding="{Binding Index}"/>
+                                                        <GridViewColumn Header="Исходный" Width="80" 
+                                                        DisplayMemberBinding="{Binding OriginalValue}"/>
+                                                        <GridViewColumn Header="Текущий" Width="80" 
+                                                        DisplayMemberBinding="{Binding CurrentValue}"/>
+                                                        <GridViewColumn Header="j" Width="40">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding IsCurrent, Converter={StaticResource BoolToArrowConverter}}" 
+                                                                       Foreground="#FFFFF959" 
+                                                                       HorizontalAlignment="Center"/>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Border>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Режимы работы -->
+                                <GroupBox Header="🎯 Режимы анализа" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,15" Padding="15" Width="748">
+                                    <StackPanel>
+                                        <ComboBox x:Name="AlgorithmComboBox" Height="35" 
+                                          Background="#FF2A104F" Foreground="Black" FontSize="16"
+                                          BorderThickness="1" BorderBrush="#FF7E5BA6"
+                                          SelectedIndex="0" SelectionChanged="AlgorithmComboBox_SelectionChanged">
+                                            <ComboBoxItem Content="🔐 Шифр Цезаря"/>
+                                            <ComboBoxItem Content="🧮 PrefixSum: res = Σ a[i] (i=0..j-1)"/>
+                                            <ComboBoxItem Content="🔢 Count > T: res = |{i  j: a[i] > T}|"/>
+                                            <ComboBoxItem Content="📈 PrefixMax: res = max(a[0..j-1])"/>
+                                        </ComboBox>
+
+                                        <TextBlock x:Name="AlgorithmDescription" Margin="0,10,0,0"
+                                          Foreground="#FFB19CD9" FontSize="12" TextWrapping="Wrap"
+                                          Text="Шифрование текста алгоритмом Цезаря с пошаговым анализом"/>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Исполнение цикла -->
+                                <GroupBox Header="⚙️ Исполнение цикла" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,15" Padding="15" Height="184" Width="748">
+                                    <StackPanel>
+                                        <Grid Margin="0,0,0,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="j = " Foreground="White" 
+                                               FontSize="14" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="CurrentJText" Grid.Column="1" Text="{Binding CurrentIndex, Mode=OneWay}" 
+                                               Foreground="#FFFFF959" FontSize="16" FontWeight="Bold"
+                                               VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="res = " Foreground="White" 
+                                               FontSize="14" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="CurrentResText" Grid.Column="3" Text="{Binding CurrentResult, Mode=OneWay}" 
+                                               Foreground="#FFFFF959" FontSize="16" FontWeight="Bold"
+                                               VerticalAlignment="Center"/>
+                                        </Grid>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="⏭️ Шаг" Height="35" Width="100"
+                                            Background="#FF4CAF50" Foreground="White" 
+                                            FontSize="14" 
+                                            Margin="5,0" Click="StepButton_Click"/>
+                                            <Button Content="▶️ Пуск" Height="35" Width="100"
+                                            Background="#FF2196F3" Foreground="White" 
+                                            FontSize="14" 
+                                            Margin="5,0" Click="StartButton_Click"/>
+                                            <Button Content="⏹️ Стоп" Height="35" Width="100"
+                                            Background="#FFF44336" Foreground="White" 
+                                            FontSize="14" 
+                                            Margin="5,0" Click="StopButton_Click"/>
+                                            <Button Content="🔄 Сброс" Height="35" Width="100"
+                                            Background="#FFFF9800" Foreground="White" 
+                                            FontSize="14" 
+                                            Margin="5,0" Click="ResetButton_Click"/>
+                                        </StackPanel>
+
+                                        <Border x:Name="PostConditionBorder" Background="#FF2A104F" 
+                                        CornerRadius="5" Padding="10" Margin="0,10,0,0"
+                                        BorderThickness="1" BorderBrush="#FF7E5BA6" Height="41">
+                                            <TextBlock x:Name="PostConditionText" Foreground="#FFB19CD9" 
+                                               FontSize="12" TextWrapping="Wrap"
+                                               Text="{Binding PostConditionText, Mode=OneWay}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Инвариант и вариант-функция -->
+                                <GroupBox Header="📐 Инвариант и Вариант" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,15" Padding="15" Height="456" Width="748">
+                                    <StackPanel>
+                                        <Label Content="Инвариант (словами):" Foreground="White" FontSize="16"/>
+                                        <TextBox x:Name="InvariantWordsTextBox" Height="40" Margin="0,5,0,10" 
+                                         Text="{Binding InvariantWords, Mode=OneWay}"
+                                         TextWrapping="Wrap" Background="#FF2A104F" 
+                                         Foreground="White" FontSize="12"
+                                         BorderThickness="1" BorderBrush="#FF7E5BA6" IsReadOnly="True"/>
+
+                                        <Label Content="Инвариант (формула):" Foreground="White" FontSize="16"/>
+                                        <TextBox x:Name="InvariantFormulaTextBox" Height="30" Margin="0,5,0,10" 
+                                         Text="{Binding InvariantFormula, Mode=OneWay}"
+                                         Background="#FF2A104F" Foreground="White" FontSize="14"
+                                         BorderThickness="1" BorderBrush="#FF7E5BA6" IsReadOnly="True"/>
+
+                                        <Grid Margin="0,10,0,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="Инвариант до шага:" Foreground="White" FontSize="16"/>
+                                                <Border x:Name="InvariantBeforeBorder" Background="{Binding IsInvariantBefore, Converter={StaticResource BoolToColorConverter}}" 
+                                                CornerRadius="10" Padding="8,4" Margin="0,5,0,0" Height="50">
+                                                    <TextBlock Text="{Binding IsInvariantBefore, Converter={StaticResource BoolToTextConverter}}" 
+                                                       Foreground="White" 
+                                                       FontSize="11" FontWeight="Bold" 
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="Инвариант после шага:" Foreground="White" FontSize="16"/>
+                                                <Border x:Name="InvariantAfterBorder" Background="{Binding IsInvariantAfter, Converter={StaticResource BoolToColorConverter}}" 
+                                                CornerRadius="10" Padding="8,4" Margin="0,5,0,0" Height="50">
+                                                    <TextBlock Text="{Binding IsInvariantAfter, Converter={StaticResource BoolToTextConverter}}" 
+                                                       Foreground="White" 
+                                                       FontSize="11" FontWeight="Bold" 
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <Label Content="Вариант-функция t:" Foreground="White" FontSize="16"/>
+                                        <TextBox x:Name="VariantFunctionTextBox" Height="41" Margin="0,5,0,10" 
+                                         Text="{Binding VariantFunctionText, Mode=OneWay}"
+                                         Background="#FF2A104F" Foreground="White" 
+                                         FontSize="16" BorderThickness="1" BorderBrush="#FF7E5BA6" IsReadOnly="True"/>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="t = " Foreground="White" 
+                                               FontSize="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                            <TextBlock x:Name="CurrentVariantText" Grid.Column="1" Text="{Binding VariantFunction, Mode=OneWay}" 
+                                               Foreground="#FFFFF959" FontSize="16" FontWeight="Bold"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text=" (убывает)" Foreground="#FF4CAF50" 
+                                               FontSize="16" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </Grid>
+
+                                        <ProgressBar x:Name="VariantProgressBar" Height="28" Margin="0,5,0,0"
+                                             Minimum="0" Maximum="100" Value="{Binding VariantProgress, Mode=OneWay}"
+                                             Background="#FF2A104F" Foreground="#FFFFF959"/>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Проверка сохранения инварианта -->
+                                <GroupBox Header="🔍 Проверка сохранения (wp)" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,15" Padding="15" Width="748">
+                                    <StackPanel>
+                                        <TextBlock Text="Формула верификации:" Foreground="White" FontSize="14"/>
+                                        <TextBox x:Name="VerificationFormulaTextBox" Height="40" Margin="0,5,0,10" 
+                                         TextWrapping="Wrap" Background="#FF2A104F" 
+                                         Foreground="#FFFFF959" FontSize="11" IsReadOnly="True"
+                                         BorderThickness="1" BorderBrush="#FF7E5BA6"
+                                         FontFamily="Consolas"
+                                         Text="{Binding VerificationFormula, Mode=OneWay}"/>
+
+                                        <TextBlock Text="Озвучка по-русски:" Foreground="White" FontSize="14"/>
+                                        <TextBox x:Name="VerificationExplanationTextBox" Height="50" Margin="0,5,0,10" 
+                                         TextWrapping="Wrap" Background="#FF2A104F" 
+                                         Foreground="#FFB19CD9" FontSize="11" IsReadOnly="True"
+                                         BorderThickness="1" BorderBrush="#FF7E5BA6"
+                                         Text="{Binding VerificationExplanation, Mode=OneWay}"/>
+
+                                        <Border Background="#FF2A104F" CornerRadius="5" Padding="10"
+                                        BorderThickness="1" BorderBrush="#FF7E5BA6">
+                                            <TextBlock x:Name="VerificationResultText" Foreground="{Binding VerificationColor, Mode=OneWay}" 
+                                               FontSize="12" FontWeight="Bold" TextWrapping="Wrap"
+                                               Text="{Binding VerificationResult, Mode=OneWay}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <!-- Лог выполнения -->
+                                <GroupBox Header="📋 Лог выполнения" Foreground="White" 
+                                 FontSize="18" BorderBrush="#FF7E5BA6" Background="#FF3A1C5F"
+                                 Margin="0,0,0,0" Padding="15" Height="158" Width="748">
+                                    <StackPanel>
+                                        <ListView x:Name="ExecutionLogListView" Height="125" 
+                                          ItemsSource="{Binding ExecutionLog}"
+                                          Background="#FF2A104F" Foreground="White"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Text="{Binding Step}" 
+                                                           Foreground="#FFFFF959" FontWeight="Bold" FontSize="10"/>
+                                                        <TextBlock Text="{Binding Action}" 
+                                                           Foreground="White" Margin="5,2,0,2" FontSize="9"/>
+                                                        <TextBlock Text="{Binding Details}" 
+                                                           Foreground="#FFB19CD9" Margin="5,0,0,2" 
+                                                           FontSize="8" FontStyle="Italic"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </Border>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </TabItem>
+        <TabItem x:Name="LogicalAnalysisTab" Header="Логический Анализ" Background="#FFE8F5E8">
+            <Border Background="#FF2D5A2D" CornerRadius="10">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <Border Margin="20" CornerRadius="15" Background="#FF4CAF50" Width="832" Height="432">
+                            <TabControl Background="Transparent" BorderBrush="#FF388E3C" Height="405" Width="822">
+
+                                <!-- Подвкладка 1: По номеру -->
+                                <TabItem Header="📊 По номеру" Background="#FFA5D6A7" RenderTransformOrigin="0.724,0.577" Margin="-4,0,1,0" Height="21">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel Margin="15" Background="#FF4CAF50">
+                                            <TextBlock Text="Анализ логических операций шифров" 
+                                               Foreground="White" FontSize="20" FontWeight="Bold"
+                                               Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+                                            <GroupBox Header="🎯 Выбор операции шифра" Foreground="Black" 
+                                              FontSize="16" BorderBrush="#FF4CAF50" Background="#FF78D07B" Width="700">
+                                                <StackPanel Margin="10">
+                                                    <ComboBox ItemsSource="{Binding CipherOperations}" 
+                                                      SelectedItem="{Binding SelectedCipher}"
+                                                      Background="White" Foreground="#FF1B5E20"
+                                                      Height="30" FontSize="14"/>
 
     </Grid>
 </Window>
