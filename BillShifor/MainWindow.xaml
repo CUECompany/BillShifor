@@ -19,7 +19,7 @@
     <TabControl Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" Height="484" VerticalAlignment="Top" HorizontalAlignment="Left" Width="905">
         <TabItem Header="Шифроватор">
             <Grid Height="500" VerticalAlignment="Top" HorizontalAlignment="Center" Width="895" Background="#FFEDF2FB">
-        <Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="28*"/>
                     <ColumnDefinition Width="101*"/>
                     <ColumnDefinition Width="60*"/>
@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="141*"/>
                     <ColumnDefinition Width="470*"/>
                     <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
 
                 <Rectangle Grid.Column="5" HorizontalAlignment="Left" Height="36" Margin="301,0,0,0" Stroke="White" VerticalAlignment="Center" Width="127" Fill="#FF006363"  RadiusX="10" RadiusY="10"/>
 
@@ -42,62 +42,63 @@
                         <MenuItem Header="Вернам" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="VernamMenu_Click"/>
                         <MenuItem Header="RSA" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="RSAMenu_Click"/>
                         <MenuItem Header="DES" Background="#FF006363" Width="181" Height="55" FontSize="15" Foreground="White" Cursor="" Click="DESMenu_Click"/>
-                <Separator/>
-            </MenuItem>
+                        <Separator/>
+                    </MenuItem>
                     <MenuItem Header="Действия" Background="#FFCCDBFD" Width="181" Height="55" FontSize="15" Foreground="#FF006363" Cursor="" BorderBrush="#FFABC4FF">
                         <MenuItem Header="Экспорт" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="ExportButton_Click"/>
                         <MenuItem Header="Импорт" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="MenuItem_Import"/>
                         <MenuItem Header="Очистить поля" Background="#FF006363" Width="190" Height="55" FontSize="15" Foreground="White" Cursor="" Click="ClearFields_Click"/>
-                <Separator/>
-            </MenuItem>
-        </Menu>
-        <Button Content="Выход" Margin="0,357,0,0" HorizontalAlignment="Center" Width="129" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" >
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
+                        <Separator/>
+                    </MenuItem>
+                    <MenuItem Header="Справка" Background="#FFCCDBFD" Width="181" Height="55" FontSize="15" Foreground="#FF006363" Cursor="" Click="Help_Button" BorderBrush="#FFABC4FF"/>
+                </Menu>
+                <Button Content="Выход" Margin="20,357,0,0" HorizontalAlignment="Left" Width="129" Height="48" VerticalAlignment="Top" FontSize="15" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.ColumnSpan="3" Background="#FFB48AD0" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" 
+                CornerRadius="10"
+                BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.FocusVisualStyle>
+                        <Style/>
+                    </Button.FocusVisualStyle>
+                </Button>
+                <ListBox x:Name="ListBox_Display" Grid.Column="5" Height="149" Margin="302,270,0,0" VerticalAlignment="Top" Foreground="Black" Background="White" HorizontalAlignment="Left" Width="126"/>
+                <ListBox x:Name="ListBox_Result" Grid.Column="3" Height="149" Margin="8,270,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF006363" HorizontalAlignment="Left" Width="488" Grid.ColumnSpan="3"/>
+                <Button Content="Шифровать" Margin="4,0,0,353" HorizontalAlignment="Left" Width="130" Height="48" VerticalAlignment="Bottom" FontSize="15" Foreground="#FF006363"  ClickMode="Press" Grid.Column="3" Click="EncryptButton_Click" Grid.ColumnSpan="2" Background="#FFABC4FF" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" 
                     CornerRadius="10"
                     BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                                  VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
-        <ListBox Grid.Column="1" Height="156" Margin="0,20,18,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" Foreground="White" Background="#FF1B4332" HorizontalAlignment="Right" Width="594"/>
-        <ListBox Grid.Column="1" Height="156" Margin="0,234,18,0" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FF1B4332" Foreground="White" SelectionChanged="ListBox_SelectionChanged" HorizontalAlignment="Right" Width="594"/>
-        <Button Content="Шифровать" Margin="0,181,482,0" HorizontalAlignment="Right" Width="130" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.Column="1" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="10"
-                        BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
-        <Button Content="Расшифровать" Margin="0,181,349,0" HorizontalAlignment="Right" Width="128" Height="48" VerticalAlignment="Top" FontSize="15" Background="#FF2D6A4F" Foreground="White" Click="Button_Click" ClickMode="Press" Grid.Column="1" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="10"
-                        BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.FocusVisualStyle>
-                <Style/>
-            </Button.FocusVisualStyle>
-        </Button>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.FocusVisualStyle>
+                        <Style/>
+                    </Button.FocusVisualStyle>
+                </Button>
+                <Button Content="Расшифровать" Margin="50,0,0,352" HorizontalAlignment="Left" Width="131" Height="49" VerticalAlignment="Bottom" FontSize="15" Foreground="White" ClickMode="Press" Grid.Column="4" Click="DecryptButton_Click" Background="#FF006363" Grid.ColumnSpan="2" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" 
+                    CornerRadius="10"
+                    BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.FocusVisualStyle>
+                        <Style/>
+                    </Button.FocusVisualStyle>
+                </Button>
                 <TextBox x:Name="TextBox_Input" Grid.Column="4" HorizontalAlignment="Left" Margin="136,181,0,0" TextWrapping="Wrap" Text="Привет МИР!!!" VerticalAlignment="Top" Width="435" Height="37" FontSize="14" Foreground="#FF006363" Grid.ColumnSpan="2" />
                 <TextBox x:Name="TextBox_Key" Grid.Column="3" Margin="8,181,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Height="37" HorizontalAlignment="Left" Width="200" FontSize="16" Grid.ColumnSpan="2" Foreground="#FF006363"/>
                 <Label x:Name="Label_Cipher" Grid.Column="3" Content="Шифровка: Не выбрана" HorizontalAlignment="Left" Margin="9,0,0,0" VerticalAlignment="Center" Foreground="White" Height="36" Width="254" FontSize="16" Grid.ColumnSpan="3"/>
@@ -779,5 +780,157 @@
                                                       Background="White" Foreground="#FF1B5E20"
                                                       Height="30" FontSize="14"/>
 
-    </Grid>
+                                                    <Grid Margin="0,10,0,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0">
+                                                            <TextBlock Text="Число переменных (n):" 
+                                                               Foreground="#FF1B5E20" FontSize="14"/>
+                                                            <TextBox Text="{Binding VariableCount}" 
+                                                             Background="White" Foreground="#FF1B5E20"
+                                                             Height="25" Margin="0,5,5,0"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="Номер функции:" 
+                                                               Foreground="#FF1B5E20" FontSize="14"/>
+                                                            <TextBox Text="{Binding FunctionNumber}" 
+                                                             Background="White" Foreground="#FF1B5E20"
+                                                             Height="25" Margin="5,5,0,0"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <Button Content="📋 Построить таблицу истинности" 
+                                            Background="#FF2D5A2D" Foreground="White"
+                                            Height="43" FontSize="14" FontWeight="Bold"
+                                            Margin="0,15,0,10" Padding="10,0"
+                                            Click="GenerateTruthTable_Click" Width="388" BorderBrush="#FF2D5A2D"/>
+
+                                            <GroupBox Header="🧮 Таблица истинности" Foreground="Black" 
+                                              FontSize="16" BorderBrush="White" Background="#FF78D07B" Height="230" Width="700">
+                                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Height="200">
+                                                    <ListView ItemsSource="{Binding TruthTable}" 
+                                                      Background="#FFE8F5E8" Foreground="#FF1B5E20">
+                                                        <ListView.View>
+                                                            <GridView>
+                                                                <GridViewColumn Header="A" Width="40" 
+                                                                        DisplayMemberBinding="{Binding Inputs[0], Converter={StaticResource BoolToCheckmarkConverter}}"/>
+                                                                <GridViewColumn Header="B" Width="40" 
+                                                                        DisplayMemberBinding="{Binding Inputs[1], Converter={StaticResource BoolToCheckmarkConverter}}"/>
+                                                                <GridViewColumn Header="Выход" Width="60" 
+                                                                        DisplayMemberBinding="{Binding Output, Converter={StaticResource BoolToCheckmarkConverter}}"/>
+                                                                <GridViewColumn Header="Биты" Width="80" 
+                                                                        DisplayMemberBinding="{Binding InputString}"/>
+                                                            </GridView>
+                                                        </ListView.View>
+                                                    </ListView>
+                                                </ScrollViewer>
+                                            </GroupBox>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </TabItem>
+
+                                <!-- Подвкладка 2: По формуле -->
+                                <TabItem Header="📝 По формуле" Background="#FFA5D6A7" Margin="-1,0,-2,0" Height="21">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel Margin="15" Background="#FF4CAF50">
+                                            <TextBlock Text="Анализ логических формул шифрования" 
+                                               Foreground="White" FontSize="20" FontWeight="Bold"
+                                               Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+                                            <GroupBox Header="🔤 Ввод формулы" Foreground="Black" 
+                                              FontSize="16" BorderBrush="#FF4CAF50" Background="#FFC8E6C9" Width="700">
+                                                <StackPanel Margin="10">
+                                                    <TextBlock Text="Формула (используйте A, B, !, &amp;, |, ^):" 
+                                                       Foreground="#FF1B5E20" FontSize="14"/>
+                                                    <TextBox Text="{Binding FormulaText}" 
+                                                     Background="White" Foreground="#FF1B5E20"
+                                                     Height="30" Margin="0,5,0,10" FontSize="14"/>
+
+                                                    <TextBlock Text="Примеры: A ^ B, (A &amp; !B) | (!A &amp; B), A | B" 
+                                                       Foreground="#FF757575" FontSize="11" FontStyle="Italic"/>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <Button Content="🔍 Анализировать формулу" 
+                                            Background="#FF2D5A2D" Foreground="White"
+                                            Height="43" FontSize="14" FontWeight="Bold"
+                                            Margin="0,15,0,10" Padding="10,0"
+                                            Click="AnalyzeFormula_Click" Width="388" BorderBrush="#FF2D5A2D"/>
+
+                                            <GroupBox Header="📈 Результаты анализа" Foreground="Black" 
+                                              FontSize="16" BorderBrush="#FF4CAF50" Background="#FFC8E6C9" Height="248" Width="700">
+                                                <StackPanel Margin="10">
+                                                    <TextBlock Text="СДНФ:" Foreground="#FF1B5E20" FontSize="14" FontWeight="Bold"/>
+                                                    <TextBox Text="{Binding DNFResult}" Background="#FFE8F5E8" 
+                                                     Foreground="#FF1B5E20" IsReadOnly="True"
+                                                     Height="40" Margin="0,5,0,10" FontSize="12"/>
+
+                                                    <TextBlock Text="СКНФ:" Foreground="#FF1B5E20" FontSize="14" FontWeight="Bold"/>
+                                                    <TextBox Text="{Binding KNFResult}" Background="#FFE8F5E8" 
+                                                     Foreground="#FF1B5E20" IsReadOnly="True"
+                                                     Height="40" Margin="0,5,0,10" FontSize="12"/>
+
+                                                    <TextBlock Text="Стоимость формулы:" Foreground="#FF1B5E20" FontSize="14" FontWeight="Bold"/>
+                                                    <TextBox Text="{Binding CostResult}" Background="#FFE8F5E8" 
+                                                     Foreground="#FF1B5E20" IsReadOnly="True"
+                                                     Height="25" Margin="0,5,0,0" FontSize="12"/>
+                                                </StackPanel>
+                                            </GroupBox>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </TabItem>
+
+                                <!-- Подвкладка 3: Сравнение -->
+                                <TabItem Header="⚖️ Сравнение" Background="#FFA5D6A7" Margin="-1,0,1,0" Width="95.1533333333333" Height="21">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel Margin="15" Background="#FF4CAF50">
+                                            <TextBlock Text="Сравнение логических формул" 
+                                               Foreground="White" FontSize="20" FontWeight="Bold"
+                                               Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+                                            <GroupBox Header="📊 Сравнение двух формул" Foreground="Black" 
+                                              FontSize="16" BorderBrush="#FF4CAF50" Background="#FFC8E6C9" Height="155" Width="700">
+                                                <StackPanel Margin="10">
+                                                    <TextBlock Text="Формула 1:" Foreground="#FF1B5E20" FontSize="14"/>
+                                                    <TextBox Text="{Binding Formula1}" 
+                                                     Background="White" Foreground="#FF1B5E20"
+                                                     Height="25" Margin="0,5,0,10" FontSize="12"/>
+
+                                                    <TextBlock Text="Формула 2:" Foreground="#FF1B5E20" FontSize="14"/>
+                                                    <TextBox Text="{Binding Formula2}" 
+                                                     Background="White" Foreground="#FF1B5E20"
+                                                     Height="25" Margin="0,5,0,10" FontSize="12"/>
+                                                </StackPanel>
+                                            </GroupBox>
+
+                                            <Button Content="⚖️ Проверить эквивалентность" 
+                                            Background="#FF2D5A2D" Foreground="White"
+                                            Height="43" FontSize="14" FontWeight="Bold"
+                                            Margin="0,15,0,10" Padding="10,0"
+                                            Click="CompareFormulas_Click" Width="388" BorderBrush="#FF2D5A2D"/>
+
+                                            <GroupBox Header="📋 Результат сравнения" Foreground="Black" 
+                                              FontSize="16" BorderBrush="#FF4CAF50" Background="#FFC8E6C9" Height="107" Width="700">
+                                                <TextBox Text="{Binding ComparisonResult}" 
+                                                 Background="#FFE8F5E8" Foreground="#FF1B5E20" 
+                                                 IsReadOnly="True" Height="60" Margin="10"
+                                                 TextWrapping="Wrap" FontSize="12" FontWeight="Bold"/>
+                                            </GroupBox>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </TabItem>
+
+                            </TabControl>
+                        </Border>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </TabItem>
+    </TabControl>
 </Window>
